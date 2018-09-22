@@ -22,6 +22,9 @@ import {
   ViroAmbientLight,
   ViroParticleEmitter,
   ViroSphere,
+  ViroVideo,
+  ViroFlexView,
+  ViroText,
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -42,27 +45,46 @@ var ARPosterDemo = createReactClass({
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" intensity={200}/>
 
-        // IMAGE MARKER 1
-        <ViroARImageMarker target={"kanyeAlbum"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
+        <ViroARImageMarker target={"poster"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
 
           <ViroNode position={[0, -.1, 0]} scale={[0,0,0]} rotation={[-90, 0, 0]} dragType="FixedToWorld" onDrag={()=>{}}
             animation={{name:"scaleModel", run:this.state.playAnim,}} >
-            <Viro3DObject onLoadEnd={this._onModelLoad}
-              source={require('./res/blackpanther/object_bpanther_anim.vrx')}
-              resources={[require('./res/blackpanther/object_bpanther_Base_Color.png'),
-                          require('./res/blackpanther/object_bpanther_Metallic.png'),
-                          require('./res/blackpanther/object_bpanther_Mixed_AO.png'),
-                          require('./res/blackpanther/object_bpanther_Normal_OpenGL.png'),
-                          require('./res/blackpanther/object_bpanther_Roughness.png')]}
-              position={[0, -1.45, 0]}
-              scale={[.9,.9,.9]}
-              animation={{name:this.state.animationName, run:this.state.modelAnim, loop:this.state.loopState, onFinish:this._onFinish,}}
-              type="VRX" />
+
+            <ViroVideo
+              position={[.5, -1.1, -7]}
+              rotation={[0, 1, 0]}
+              paused={this.state.videoPaused}
+              loop={true}
+              height={2}
+              width={4}
+              onClick={this._onClickVideo}
+              muted={true}
+              source={require('./res/SwordCam.mp4')}
+              animation={{name : this.state.mainAnimation, run : this.state.runAnimation, loop : false}} />
+
+              <ViroFlexView style={styles.titleContainer}
+                position={[.5, 1, -7]} rotation={[0, 1, 0]} height={2} width={4}>
+                <ViroFlexView style={styles.rowContainer} >
+                  <ViroText style={styles.prodDescriptionText} text="Lady Gaga" />
+                  <ViroText style={styles.priceText} text="" />
+                </ViroFlexView>
+                <ViroText style={styles.prodDescriptionText} text="Album: The Fame Monster" />
+                <ViroText style={styles.prodDescriptionText} text="Cheapest Price: $$$" />
+              </ViroFlexView>
+
+              <ViroFlexView style={styles.titleContainer}
+                position={[.5, -3.2, -7]} rotation={[0, 1, 0]} height={2} width={4}>
+                <ViroFlexView style={styles.rowContainer} >
+                  <ViroText style={styles.prodDescriptionText} text="Lady Gaga" />
+                  <ViroText style={styles.priceText} text="" />
+                </ViroFlexView>
+                <ViroText style={styles.prodDescriptionText} text="Album: The Fame Monster" />
+                <ViroText style={styles.prodDescriptionText} text="Cheapest Price: $$$" />
+              </ViroFlexView>
 
           </ViroNode>
 
         </ViroARImageMarker>
-
 
         <ViroOmniLight
             intensity={300}
@@ -140,26 +162,54 @@ var ARPosterDemo = createReactClass({
 });
 
 var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
+  rowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  prodTitleText: {
+    fontFamily: 'sans-serif-light',
     fontSize: 30,
+    color: '#222222',
+    textAlignVertical: 'center',
+    textAlign: 'left',
+  },
+  priceText: {
+    fontFamily: 'sans-serif-light',
+    fontSize: 20,
+    color: '#aa3c3c',
+    textAlignVertical: 'center',
+    textAlign: 'left',
+    flex: 4,
+  },
+  prodDescriptionText: {
+    fontFamily: 'sans-serif-light',
+    fontSize: 20,
+    color: '#222222',
+    textAlignVertical: 'center',
+    textAlign: 'left',
+    flex: 1,
+  },
+  titleContainer: {
+    flexDirection: 'column',
+    backgroundColor: "#ffffffdd",
+    padding: .2,
+  },
+  navButtonText: {
+    fontFamily: 'sans-serif-light',
+    fontSize: 15,
     color: '#ffffff',
     textAlignVertical: 'center',
     textAlign: 'center',
+    flex: 1,
   },
 });
 
 ViroARTrackingTargets.createTargets({
-  kanyeAlbum : {
-    source : require('./res/kanye.jpeg'),
+  poster : {
+    source : require('./res/magicsword.jpg'),
     orientation : "Up",
     physicalWidth : 0.6096 // real world width in meters
   },
-  gagaAlbum : {
-    source : require('./res/ladygaga.jpg'),
-    orientation : "Up",
-    physicalWidth : 0.6096 // real world width in meters
-  }
 });
 
 ViroAnimations.registerAnimations({
