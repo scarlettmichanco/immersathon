@@ -12,6 +12,7 @@ import {
   AppRegistry,
   Text,
   View,
+  Image,
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
@@ -72,6 +73,10 @@ export default class ViroSample extends Component {
   _getExperienceSelector() {
     return (
       <View style={localStyles.outer} >
+        <Image
+          source={require("./js/res/foo.jpg")}
+          style={localStyles.img}
+        />
         <View style={localStyles.inner} >
 
           <Text style={localStyles.titleText}>
@@ -131,6 +136,15 @@ export default class ViroSample extends Component {
 }
 
 var localStyles = StyleSheet.create({
+  img: {
+  position: "absolute",
+  top: "-0.67%",
+  // left: "-2.00%",
+  height: "100.67%",
+  width: "102.00%",
+  opacity: 0.1,
+  backgroundColor: "transparent"
+  },
   viroContainer :{
     flex : 1,
     backgroundColor: "black",
@@ -145,7 +159,7 @@ var localStyles = StyleSheet.create({
     flex : 1,
     flexDirection: 'column',
     alignItems:'center',
-    backgroundColor: "black",
+    // backgroundColor: "black",
   },
   titleText: {
     paddingTop: 30,

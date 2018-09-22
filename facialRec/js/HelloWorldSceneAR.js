@@ -82,6 +82,7 @@ var ARPosterDemo = createReactClass({
                 <ViroText style={styles.prodDescriptionText} text="Cheapest Price: $$$" />
               </ViroFlexView>
 
+
           </ViroNode>
 
         </ViroARImageMarker>
